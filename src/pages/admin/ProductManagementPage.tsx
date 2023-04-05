@@ -1,14 +1,16 @@
 import React from 'react'
-import { Space, Table, Tag, Button } from 'antd';
+import { Space, Table, Button, Pagination } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
 const ProductManagementPage = (props: any) => {
+
     const data = props.products.map((product: any) => {
         return {
-            key: product.id,
+            key: product._id,
             name: product.name,
-            desc: product.desc,
-            image: <img width={50} src={product.image} alt="" />
+            price: product.price,
+            image: <img width={50} src={product.image} alt="" />,
+            description: product.description
         }
     });
     const removeProduct = (id: string | number) => {
@@ -30,14 +32,19 @@ const ProductManagementPage = (props: any) => {
             render: (text) => <a>{text}</a>,
         },
         {
-            title: 'Desc',
-            dataIndex: 'desc',
-            key: 'desc',
+            title: 'Product Price',
+            dataIndex: 'price',
+            key: 'price',
         },
         {
             title: 'Image',
             dataIndex: 'image',
             key: 'image',
+        },
+        {
+            title: 'Product Description',
+            dataIndex: 'description',
+            key: 'description',
         },
         {
             title: 'Action',
@@ -52,30 +59,7 @@ const ProductManagementPage = (props: any) => {
     ];
     return (
         <div>
-            {/* <table border={1}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Desc</th>
-                        <th>Image</th>
-                        <th>Chức Năng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.products.map((product, index) => (
-                        <tr key={product.id}>
-                            <td>{index + 1}</td>
-                            <td>{product.name}</td>
-                            <td>{product.desc}</td>
-                            <td><img width={50} src={product.image} alt="" /></td>
-                            <td><button onClick={() => removeProduct(product.id)}>Remove</button></td>
-                        </tr>
-                    ))}
-
-                </tbody>
-            </table> */}
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 10 }} />
         </div>
     )
 }

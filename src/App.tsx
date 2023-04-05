@@ -7,20 +7,28 @@ import Dashboard from "./pages/admin/Dashboard";
 import ProductManagementPage from "./pages/admin/ProductManagementPage";
 import AddProduct from "./pages/admin/AddProduct";
 import UpdateProduct from "./pages/admin/UpdateProduct";
+import Signin from './pages/sign/signin';
 import { addProduct, getAll, removeProduct, updateProduct } from "./api/product";
 import RootLayout from "./component/rootLayout";
 import AdminLayout from "./component/adminLayout";
 import { IProduct } from './interfaces/products';
+import { ICategory } from './interfaces/categories';
+import { addCategory, getAllCategory, removeCategory } from './api/category';
+import CategoryPage from './pages/admin/category/CategoryPage';
+import AddCategory from './pages/admin/category/AddCategory';
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
   useEffect(() => {
-    getAll().then(({ data }) => setProducts(data));
+    (async () => {
+      const { data } = await getAll();
+      setProducts(data.docs);
+    })()
   }, [])
 
   const OnhandleRemove = (id: string | number) => {
     if (window.confirm("Bạn chắc chắn chứ?") == true) {
       removeProduct(id).then(() => {
-        const newProducts = products.filter((product) => product.id != id);
+        const newProducts = products.filter((product) => product._id != id);
         setProducts(newProducts)
       })
 
@@ -30,7 +38,26 @@ function App() {
     addProduct(product).then(() => alert("Thêm sản phẩm thành công"));
   }
   const onHandleUpdate = (product: IProduct) => {
-    updateProduct(product).then(() => setProducts(products.map(item => item.id == product.id ? product : item))).then(() => alert("Cập nhật sản phẩm thành công"));
+    updateProduct(product).then(() => setProducts(products.map(item => item._id == product._id ? product : item))).then(() => alert("Cập nhật sản phẩm thành công"));
+  }
+  // Category
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  useEffect(() => {
+    (async () => {
+      const { data } = await getAllCategory();
+      setCategories(data);
+    })()
+  }, [categories])
+  const OnhandleRemoveCate = (id: string | number) => {
+    if (window.confirm("Bạn chắc chắn chứ?") == true) {
+      removeCategory(id).then(() => {
+        const newCategories = categories.filter((category) => category._id != id);
+        setCategories(newCategories);
+      })
+    }
+  }
+  const onHandleAddCate = (category: ICategory) => {
+    addCategory(category).then(() => alert("Thêm danh mục thành công"));
   }
 
   return (
@@ -40,13 +67,18 @@ function App() {
           <Route path="/" element={<RootLayout />}>
             <Route path="/" index element={<HomePage />} />
             <Route path="contact" element="Contact Page" />
-            {/* <Route path="signin" element={<Signin />} /> */}
+            <Route path="signin" element={<Signin />} />
           </Route>
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="products">
               <Route index element={<ProductManagementPage products={products} onRemove={OnhandleRemove} />} />
-              <Route path='add' element={<AddProduct products={products} onAdd={onHandleAdd} />} />
+              <Route path='add' element={<AddProduct categories={categories} products={products} onAdd={onHandleAdd} />} />
+              <Route path=':id/update' element={<UpdateProduct products={products} onUpdate={onHandleUpdate} />} />
+            </Route>
+            <Route path='categories'>
+              <Route index element={<CategoryPage categories={categories} onRemoveCate={OnhandleRemoveCate} />} />
+              <Route path='add' element={<AddCategory categories={categories} onAddCate={onHandleAddCate} />} />
               <Route path=':id/update' element={<UpdateProduct products={products} onUpdate={onHandleUpdate} />} />
             </Route>
           </Route>

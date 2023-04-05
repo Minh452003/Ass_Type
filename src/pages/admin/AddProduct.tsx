@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Select, Image } from 'antd';
 import { IProps } from '../../interfaces/products';
 
 
-const AddProduct = (props: IProps) => {
+const AddProduct = (props: any) => {
     const navigate = useNavigate();
     const onFinish = (values: any) => {
         props.onAdd(values);
@@ -16,47 +16,68 @@ const AddProduct = (props: IProps) => {
     };
 
 
+
     return (
         <div>
-            <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="Product Name"
-                    name="name"
-                    rules={[{ required: true, message: 'Tên không đuọc để trống!' }]}
-                >
-                    <Input />
-                </Form.Item>
+            <Row>
+                <Col span={12}><Image
+                    width={'80%'}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                /></Col>
+                <Col span={12}>
+                    <Form
+                        layout="vertical"
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
+                        <Form.Item
+                            label="Product Name"
+                            name="name"
+                            rules={[{ required: true, message: 'Tên không được để trống!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Product Price"
+                            name="price"
+                            rules={[{ required: true, message: 'Giá không đuọc để trống!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Image"
+                            name="image"
+                            rules={[{ required: true, message: 'Link ảnh không được để trống' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Desc"
+                            name="description"
+                            rules={[{ required: true, message: 'Mô tả không được để trống' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Select" name="categoryId" rules={[{ required: true, message: 'Danh mục không được để trống!' }]}>
+                            <Select>
+                                {props.categories.map((category: any) => {
+                                    return <Select.Option value={category._id}>{category.name}</Select.Option>
+                                })}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item >
+                            <Button style={{ width: "100%", height: 35 }} type="primary" htmlType="submit">
+                                ADD PRODUCT
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Col>
+            </Row>
 
-                <Form.Item
-                    label="Desc"
-                    name="desc"
-                    rules={[{ required: true, message: 'Mô tả không được để trống' }]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="Image"
-                    name="image"
-                    rules={[{ required: true, message: 'Link ảnh không được để trống' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        ADD PRODUCT
-                    </Button>
-                </Form.Item>
-            </Form>
         </div>
     )
 }

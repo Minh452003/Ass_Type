@@ -1,9 +1,10 @@
 
 export interface IProduct {
-    id: number | string
+    _id?: number | string,
     name: string,
-    desc: string | number,
-    image: string
+    price: number,
+    image: string,
+    description: string
 }
 export interface IProps {
     products: any;
