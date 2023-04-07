@@ -137,16 +137,17 @@
 
 .product-name {
   font-size: 22px;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 22px;
   margin-bottom: 4px;
 }
 
 .product-price-discount {
   font-size: 22px;
-  font-weight: 400;
+  font-weight: bold;
   padding: 10px 0;
   clear: both;
+  color: red;
 }
 
 .product-price-discount span.line-through {
@@ -258,13 +259,13 @@
 
 .round-black-btn {
   border-radius: 4px;
-  background: #212529;
+  background: red;
   color: #fff;
   padding: 7px 45px;
   display: inline-block;
   margin-top: 20px;
-  border: solid 2px #212529;
   transition: all 0.5s ease-in-out 0s;
+  text-decoration: none;
 }
 
 .round-black-btn:hover,
@@ -356,6 +357,11 @@
   font-weight: bold !important;
   padding-right: 45px !important;
   padding-top: 16px !important;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none !important;
 }
 
 .nav-link1:hover {

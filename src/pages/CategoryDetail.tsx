@@ -61,15 +61,6 @@ const CategoryDetail = (props: Props) => {
 
                             </ul>
                         </div>
-                        <div className="card bg-light mb-3">
-                            <div className="card-header bg-success text-white text-uppercase">TOP 10 YÊU THÍCH</div>
-
-                            <div className="card-body">
-                                <img className="img-fluid" src="" width="50" />
-                                <a href="" className="card-title"></a>
-                            </div>
-
-                        </div>
                     </div>
                     <div className="col">
                         <div style={{ height: 50 }} className="card-header bg-success text-white text-uppercase text-center">

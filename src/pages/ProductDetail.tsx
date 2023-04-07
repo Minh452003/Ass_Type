@@ -37,13 +37,11 @@ const ProductDetail = (props: ProductDetailProps) => {
                         <div className="product-info">
                             <div className="product-name">{product?.name}</div>
                             <div className="reviews-counter">
-
                                 <span>3 Reviews</span>
                             </div>
-                            <div className="product-price-discount"><span>{product?.price}$</span><span className="line-through">{product?.price}$</span>
+                            <div className="product-price-discount"><span>{product?.price}$</span>
                             </div>
                         </div>
-                        <p>{product?.description}</p>
                         <div className="row">
                             <div className="col-md-6">
                                 <label >Phiên Bản</label>
@@ -124,7 +122,23 @@ const ProductDetail = (props: ProductDetailProps) => {
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div className="card border-light mb-3">
+                <div style={{ textAlign: 'center' }} className="card-header bg-warning text-white text-uppercase">Đánh giá</div>
+                <div className="card-body">
+                    <div className="review">
+                        <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>
+                    <div className="comment-box text-center">
+                        <h4>Để lại bình luận</h4>
+                        <form action="" method="post">
+                            <div className="comment-area"><textarea className="form-control" placeholder="Nội dung..."
+                                rows={4} name="noidung"></textarea></div>
+                            <div className="text-center mt-4"><input className='btn btn-danger' type="submit" name="guibinhluan" value="Gửi bình luận" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     )

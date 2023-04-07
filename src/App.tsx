@@ -22,6 +22,7 @@ import { IUser } from './interfaces/user';
 import SignUp from './pages/sign/signup';
 import "./App.css"
 import CategoryDetail from './pages/CategoryDetail';
+import ProductsPage from './pages/Products';
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
   useEffect(() => {
@@ -75,6 +76,7 @@ function App() {
         <Routes>
           <Route path="/" element={<RootLayout />}>
             <Route path="/" index element={<HomePage categories={categories} products={products} />} />
+            <Route path="products" element={<ProductsPage products={products} />} />
             <Route path="products/:id" element={<ProductDetail products={products} />} />
             <Route path="categories/:id" element={<CategoryDetail categories={categories} products={products} />} />
             <Route path="contact" element="Contact Page" />

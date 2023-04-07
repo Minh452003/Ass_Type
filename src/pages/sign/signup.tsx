@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Col, Form, Input, Row, Select, Image } from 'antd';
 import { signUp } from '../../api/auth';
 type Props = {}
@@ -60,10 +60,13 @@ const SignUp = (props: any) => {
                             <Input />
                         </Form.Item>
                         <Form.Item >
-                            <Button style={{ width: "100%", height: 35 }} type="primary" htmlType="submit">
+                            <Button style={{ width: "100%", height: 35 }} type="primary" htmlType="submit" danger>
                                 SIGN UP
                             </Button>
                         </Form.Item>
+                        <div className="form-group">
+                            <p style={{ textAlign: 'center' }}>Chưa có tài khoản?<Link to={'/signin'}>Đăng nhập</Link></p>
+                        </div>
                     </Form>
                 </Col>
             </Row>
