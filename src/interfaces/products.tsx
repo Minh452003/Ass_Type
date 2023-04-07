@@ -4,7 +4,8 @@ export interface IProduct {
     name: string,
     price: number,
     image: string,
-    description: string
+    description: string,
+    categoryId: number | string
 }
 export interface IProps {
     products: any;

@@ -65,7 +65,7 @@ const AddProduct = (props: any) => {
                         <Form.Item label="Select" name="categoryId" rules={[{ required: true, message: 'Danh mục không được để trống!' }]}>
                             <Select>
                                 {props.categories.map((category: any) => {
-                                    return <Select.Option value={category._id}>{category.name}</Select.Option>
+                                    return <Select.Option key={category?._id} value={category._id}>{category.name}</Select.Option>
                                 })}
                             </Select>
                         </Form.Item>

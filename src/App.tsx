@@ -13,9 +13,15 @@ import RootLayout from "./component/rootLayout";
 import AdminLayout from "./component/adminLayout";
 import { IProduct } from './interfaces/products';
 import { ICategory } from './interfaces/categories';
-import { addCategory, getAllCategory, removeCategory } from './api/category';
+import { addCategory, getAllCategory, removeCategory, updateCategory } from './api/category';
 import CategoryPage from './pages/admin/category/CategoryPage';
 import AddCategory from './pages/admin/category/AddCategory';
+import UpdateCategory from './pages/admin/category/updateCategory';
+import { signUp } from './api/auth';
+import { IUser } from './interfaces/user';
+import SignUp from './pages/sign/signup';
+import "./App.css"
+import CategoryDetail from './pages/CategoryDetail';
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
   useEffect(() => {
@@ -47,7 +53,7 @@ function App() {
       const { data } = await getAllCategory();
       setCategories(data);
     })()
-  }, [categories])
+  }, [])
   const OnhandleRemoveCate = (id: string | number) => {
     if (window.confirm("Bạn chắc chắn chứ?") == true) {
       removeCategory(id).then(() => {
@@ -59,27 +65,33 @@ function App() {
   const onHandleAddCate = (category: ICategory) => {
     addCategory(category).then(() => alert("Thêm danh mục thành công"));
   }
+  const onHandleUpdateCate = (category: ICategory) => {
+    updateCategory(category).then(() => setCategories(categories.map(item => item._id == category._id ? category : item))).then(() => alert("Cập nhật danh mục thành công"));
+  }
 
   return (
     <div className="App" style={{ width: '100%' }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RootLayout />}>
-            <Route path="/" index element={<HomePage />} />
+            <Route path="/" index element={<HomePage categories={categories} products={products} />} />
+            <Route path="products/:id" element={<ProductDetail products={products} />} />
+            <Route path="categories/:id" element={<CategoryDetail categories={categories} products={products} />} />
             <Route path="contact" element="Contact Page" />
             <Route path="signin" element={<Signin />} />
+            <Route path="signup" element={<SignUp />} />
           </Route>
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="products">
               <Route index element={<ProductManagementPage products={products} onRemove={OnhandleRemove} />} />
               <Route path='add' element={<AddProduct categories={categories} products={products} onAdd={onHandleAdd} />} />
-              <Route path=':id/update' element={<UpdateProduct products={products} onUpdate={onHandleUpdate} />} />
+              <Route path=':id/update' element={<UpdateProduct categories={categories} products={products} onUpdate={onHandleUpdate} />} />
             </Route>
             <Route path='categories'>
               <Route index element={<CategoryPage categories={categories} onRemoveCate={OnhandleRemoveCate} />} />
               <Route path='add' element={<AddCategory categories={categories} onAddCate={onHandleAddCate} />} />
-              <Route path=':id/update' element={<UpdateProduct products={products} onUpdate={onHandleUpdate} />} />
+              <Route path=':id/update' element={<UpdateCategory categories={categories} onUpdateCate={onHandleUpdateCate} />} />
             </Route>
           </Route>
         </Routes>

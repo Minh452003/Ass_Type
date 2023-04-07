@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Checkbox, Col, Form, Input, Row, Select, Image } from 'antd';
-import { signIn } from '../../api/auth';
+import { signUp } from '../../api/auth';
 type Props = {}
 
-const Signin = (props: Props) => {
+const SignUp = (props: any) => {
     const navigate = useNavigate();
-    const onFinish = async (values: any) => {
-        const { data: user } = await signIn(values);
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/admin");
+    const onFinish = (values: any) => {
+        signUp(values);
+        navigate("/signin");
     }
 
     const onFinishFailed = (errorInfo: any) => {
@@ -33,6 +32,13 @@ const Signin = (props: Props) => {
                         autoComplete="off"
                     >
                         <Form.Item
+                            label="Username"
+                            name="name"
+                            rules={[{ required: true, message: 'Tên không được để trống!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
                             label="Email"
                             name="email"
                             rules={[{ required: true, message: 'Email không được để trống!' }]}
@@ -46,9 +52,16 @@ const Signin = (props: Props) => {
                         >
                             <Input />
                         </Form.Item>
+                        <Form.Item
+                            label="Confirm Password"
+                            name="confirmpassword"
+                            rules={[{ required: true, message: 'Nhập lại mật khẩu không được để trống!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
                         <Form.Item >
                             <Button style={{ width: "100%", height: 35 }} type="primary" htmlType="submit">
-                                LOGIN
+                                SIGN UP
                             </Button>
                         </Form.Item>
                     </Form>
@@ -59,4 +72,4 @@ const Signin = (props: Props) => {
     )
 }
 
-export default Signin
+export default SignUp

@@ -15,8 +15,12 @@ export const addCategory = (category: ICategory) => {
     }
     );
 }
-export const updateCategory = (category: ICategory) => {
-    return instance.put("/categories/" + category._id, category);
+export const updateCategory = (category: any) => {
+    return instance.patch("/categories/" + category.id, category, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
 }
 export const removeCategory = (id: number | string) => {
     return instance.delete("/categories/" + id, {

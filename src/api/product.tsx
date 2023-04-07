@@ -15,8 +15,12 @@ export const addProduct = (product: IProduct) => {
     }
     );
 }
-export const updateProduct = (product: IProduct) => {
-    return instance.put("/products/" + product._id, product);
+export const updateProduct = (product: any) => {
+    return instance.patch("/products/" + product.id, product, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
 }
 export const removeProduct = (id: number | string) => {
     return instance.delete("/products/" + id, {

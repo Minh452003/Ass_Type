@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { IProduct, IUpdate } from '../../interfaces/products';
-import { useForm } from "react-hook-form";
 
-const UpdateProduct = (props: IUpdate) => {
+const UpdateProduct = (props: any) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState<IProduct>();
 
     useEffect(() => {
-        const currentProduct = props.products.find((product: IProduct) => product.id == Number(id));
+        const currentProduct = props.products.find((product: IProduct) => product._id == id);
         setProduct(currentProduct);
     }, [props]);
     useEffect(() => {
@@ -19,12 +18,16 @@ const UpdateProduct = (props: IUpdate) => {
     const [form] = Form.useForm();
     const setFields = () => {
         form.setFieldsValue({
-            id: product?.id,
+            id: product?._id,
             name: product?.name,
-            desc: product?.desc,
-            image: product?.image
+            price: product?.price,
+            image: product?.image,
+            description: product?.description,
+            categoryId: product?.categoryId
         })
     }
+
+
     const onFinish = (values: any) => {
         props.onUpdate(values);
         navigate("/admin/products");
@@ -37,7 +40,15 @@ const UpdateProduct = (props: IUpdate) => {
 
     return (
         <div>
-            <Form form={form} style={{ maxWidth: 600 }} onFinish={onFinish} >
+            <Form
+                form={form}
+                layout="vertical"
+                name="basic"
+                labelCol={{ span: 8 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off" >
 
                 <Form.Item
                     label=""
@@ -58,9 +69,9 @@ const UpdateProduct = (props: IUpdate) => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Product Desc"
-                    name="desc"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
+                    label="Product Price"
+                    name="price"
+                    rules={[{ required: true, message: 'Please input your price!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -71,10 +82,23 @@ const UpdateProduct = (props: IUpdate) => {
                 >
                     <Input />
                 </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Update Product
+                <Form.Item
+                    label="Product Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please input your description!' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item label="Select" name="categoryId" rules={[{ required: true, message: 'Danh mục không được để trống!' }]}>
+                    <Select>
+                        {props.categories.map((category: any) => {
+                            return <Select.Option key={category?._id} value={category._id}>{category.name}</Select.Option>
+                        })}
+                    </Select>
+                </Form.Item>
+                <Form.Item >
+                    <Button style={{ width: "100%", height: 35 }} type="primary" htmlType="submit">
+                        UPDATE PRODUCT
                     </Button>
                 </Form.Item>
             </Form>
