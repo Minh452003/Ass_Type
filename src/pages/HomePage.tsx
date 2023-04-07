@@ -39,7 +39,7 @@ const HomePage = (props: any) => {
                 <div className="row">
                     <div className="col-12 col-sm-3">
                         <div className="card bg-light mb-3">
-                            <form className="pb-3" action="index.php?act=sanpham" method="post">
+                            <form className="pb-3" action="" method="post">
                                 <div className="input-group">
                                     <input type="text" className='form-control' placeholder="Tìm kiếm sản phẩm..." />
                                     <div className="input-group-append">

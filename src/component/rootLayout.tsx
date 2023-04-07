@@ -7,15 +7,17 @@ import {
     FileOutlined,
     HomeOutlined,
     ProjectOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    LoginOutlined,
+    AntDesignOutlined
 } from '@ant-design/icons'; type Props = {}
 const { Header, Content, Footer } = Layout;
 const onSearch = (value: string) => console.log(value);
 const { Search } = Input;
 type MenuItem = Required<MenuProps>['items'][number];
 function getItem(
-    label: React.ReactNode,
-    key: React.Key,
+    label?: React.ReactNode,
+    key?: React.Key,
     icon?: React.ReactNode,
     to?: string,
     children?: MenuItem[],
@@ -28,13 +30,14 @@ function getItem(
         label: to ? <Link to={to} > {label}</Link> : label,
     } as MenuItem;
 }
+
 const items: MenuItem[] = [
     getItem('Home', '1', <HomeOutlined />, '/'),
     getItem('Products ', '2', <HddOutlined />, '/products'),
     getItem('About ', '3', <HddOutlined />, '/about'),
     getItem('Contact', '4', <FileOutlined />, '/contact'),
-    getItem('Signin ', '5', <HddOutlined />, '/signin'),
-    getItem('Signup ', '6', <HddOutlined />, '/signup'),
+    getItem('Signin ', '5', <LoginOutlined />, '/signin'),
+    getItem('Signup ', '6', <AntDesignOutlined />, '/signup'),
 ];
 const RootLayout = (props: Props) => {
     const {

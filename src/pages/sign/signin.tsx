@@ -35,16 +35,16 @@ const Signin = (props: Props) => {
                         <Form.Item
                             label="Email"
                             name="email"
-                            rules={[{ required: true, message: 'Email không được để trống!' }]}
+                            rules={[{ required: true, message: 'Email không được để trống!' }, { type: 'email', message: 'Email phải đúng định dạng' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Password"
                             name="password"
-                            rules={[{ required: true, message: 'Mật khẩu không được để trống!' }]}
+                            rules={[{ required: true, message: 'Mật khẩu không được để trống!' }, { min: 6, message: 'Mật khẩu ít nhất 6 kí tự' }]}
                         >
-                            <Input />
+                            <Input.Password />
                         </Form.Item>
                         <div className="form-group">
                             <a href="index.php?act=quenmk" className="float-right">Quên mật khẩu?</a>

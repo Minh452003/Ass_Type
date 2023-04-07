@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { Button, Checkbox, Col, Form, Input, Row, Select, Image } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Select, Image, message } from 'antd';
 import { IProps } from '../../interfaces/products';
 
 
@@ -37,6 +37,7 @@ const AddProduct = (props: any) => {
                         <Form.Item
                             label="Product Name"
                             name="name"
+                            hasFeedback
                             rules={[{ required: true, message: 'Tên không được để trống!' }]}
                         >
                             <Input />
@@ -44,13 +45,15 @@ const AddProduct = (props: any) => {
                         <Form.Item
                             label="Product Price"
                             name="price"
-                            rules={[{ required: true, message: 'Giá không đuọc để trống!' }]}
+                            hasFeedback
+                            rules={[{ required: true, message: 'Giá không đuợc để trống!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Image"
                             name="image"
+                            hasFeedback
                             rules={[{ required: true, message: 'Link ảnh không được để trống' }]}
                         >
                             <Input />
@@ -58,6 +61,7 @@ const AddProduct = (props: any) => {
                         <Form.Item
                             label="Desc"
                             name="description"
+                            hasFeedback
                             rules={[{ required: true, message: 'Mô tả không được để trống' }]}
                         >
                             <Input />
