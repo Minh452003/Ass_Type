@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useRef } from 'react'; import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import {
     HddOutlined,
     FileOutlined,
@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Avatar, Button, MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 function getItem(
@@ -45,6 +45,27 @@ const AdminLayout = (props: Props) => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const navigate = useNavigate();
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser !== null) {
+            const { user: { name } } = JSON.parse(storedUser);
+            setName(name);
+        } else {
+            // Handle null case here
+        }
+    }, []);
+
+    // Create a ref for the name div
+    const nameRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (nameRef.current !== null) {
+            nameRef.current.innerText = name;
+        }
+    }, [name]);
     return (
 
         <Layout style={{ minHeight: '100vh' }}>
@@ -57,14 +78,17 @@ const AdminLayout = (props: Props) => {
             <Layout className="site-layout">
                 <Header style={{ padding: 0, background: colorBgContainer }}>
                     <div>
-                        <Avatar style={{ marginLeft: "75%" }}
-                            size={{ xs: 12, sm: 15, md: 13, lg: 20, xl: 40, xxl: 50 }}
-                            icon={<UserOutlined />}
-                        ></Avatar><b style={{ marginLeft: '10px' }}>Phùng Quang Minh</b>
-                        <Button style={{ marginLeft: '10px' }}
-                            danger
-                            icon={< LogoutOutlined />}
-                        />
+                        <div style={{ float: 'right' }}>
+                            <span ref={nameRef} className="text-primary" style={{ display: 'inline-block', marginRight: '10px' }}></span>
+                            <Link to={'/'} className="text-info" style={{ marginRight: '10px' }}>Về trang chủ</Link>
+                            <Button onClick={() => {
+                                localStorage.removeItem("user")
+                                navigate('/')
+                            }} style={{ marginRight: '10px' }}
+                                danger
+
+                            >Thoát</Button>
+                        </div>
 
                     </div>
 

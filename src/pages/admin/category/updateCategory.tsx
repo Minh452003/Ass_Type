@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, Input, Select } from 'antd';
 import { ICategory } from '../../../interfaces/categories';
+import PrivateRoute from '../../../PrivateRouter';
 
 const UpdateCategory = (props: any) => {
     const { id } = useParams();
     const navigate = useNavigate();
+    PrivateRoute();
     const [category, setCategory] = useState<ICategory>();
-
     useEffect(() => {
         const currentCategory = props.categories.find((category: ICategory) => category._id == id);
         setCategory(currentCategory);

@@ -1,6 +1,6 @@
 import { ICategory } from "../interfaces/categories";
 import instance from "./instance";
-const { accessToken } = JSON.parse(localStorage.getItem('user')!)
+const { accessToken } = JSON.parse(localStorage.getItem('user')!) || []
 export const getAllCategory = () => {
     return instance.get("/categories")
 }

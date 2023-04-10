@@ -9,7 +9,7 @@ const Signin = (props: Props) => {
     const onFinish = async (values: any) => {
         const { data: user } = await signIn(values);
         localStorage.setItem("user", JSON.stringify(user));
-        navigate("/admin");
+        navigate("/");
     }
 
     const onFinishFailed = (errorInfo: any) => {

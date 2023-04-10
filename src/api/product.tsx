@@ -1,6 +1,6 @@
 import { IProduct } from "../interfaces/products";
 import instance from "./instance";
-const { accessToken } = JSON.parse(localStorage.getItem('user')!)
+const { accessToken } = JSON.parse(localStorage.getItem('user')!) || []
 export const getAll = () => {
     return instance.get("/products")
 }

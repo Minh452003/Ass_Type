@@ -1,6 +1,6 @@
-import React from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { Breadcrumb, Button, Layout, Menu, theme } from 'antd';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Input, Space, MenuProps } from 'antd';
 import {
     HddOutlined,
@@ -43,11 +43,44 @@ const RootLayout = (props: Props) => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const navigate = useNavigate();
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser !== null) {
+            const { user: { name } } = JSON.parse(storedUser);
+            setName(name);
+        } else {
+            // Handle null case here
+        }
+    }, []);
+
+    // Create a ref for the name div
+    const nameRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (nameRef.current !== null) {
+            nameRef.current.innerText = name;
+        }
+    }, [name]);
+
     return (
         <Layout className="layout">
             <Header>
                 <div className="logo">
                     <img style={{ float: 'left' }} src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/cbf3c580-feca-46cf-8a3f-ceb136da5bb1/d39lpuk-d77fd28c-635b-4f63-ba7e-f953b94cbc0c.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2NiZjNjNTgwLWZlY2EtNDZjZi04YTNmLWNlYjEzNmRhNWJiMVwvZDM5bHB1ay1kNzdmZDI4Yy02MzViLTRmNjMtYmE3ZS1mOTUzYjk0Y2JjMGMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gfbHAmoImTwEGpCRgLOAQsSrWWYX0TU-wlDsmTS1Gt4" alt="" width={'10%'} />
+                    <div style={{ float: 'right' }}>
+                        <span ref={nameRef} className="text-white" style={{ display: 'inline-block', marginRight: '10px' }}></span>|||||
+                        <Link to={'/admin'} className="text-info">Đăng nhập admin</Link> |
+                        <Button onClick={() => {
+                            localStorage.removeItem("user")
+                            navigate('/')
+                        }} style={{ marginLeft: '10px' }}
+                            danger
+
+                        >Thoát</Button>
+                    </div>
                 </div>
                 <Menu
                     className='menu'
@@ -55,7 +88,6 @@ const RootLayout = (props: Props) => {
                     mode="horizontal"
                     defaultSelectedKeys={['2']}
                     items={items}
-
                 />
 
             </Header>

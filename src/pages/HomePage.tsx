@@ -72,7 +72,7 @@ const HomePage = (props: any) => {
                         </div>
                         <div className="row">
                             {props.products.map((product: any) => {
-                                return <div className="col-12 col-md-6 col-lg-4 mt-2" key={product._id}>
+                                return <div className="col-12 col-md-6 col-lg-3 mt-2" key={product._id}>
                                     <div className="card">
                                         <a href=""><img src={product.image} alt="" width={'100%'} /></a>
                                         <div className="card-body">

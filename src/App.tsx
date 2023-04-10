@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -69,7 +69,6 @@ function App() {
   const onHandleUpdateCate = (category: ICategory) => {
     updateCategory(category).then(() => setCategories(categories.map(item => item._id == category._id ? category : item))).then(() => alert("Cập nhật danh mục thành công"));
   }
-
   return (
     <div className="App" style={{ width: '100%' }}>
       <BrowserRouter>

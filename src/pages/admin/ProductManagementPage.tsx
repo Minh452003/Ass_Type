@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Space, Table, Button, Pagination } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import PrivateRoute from '../../PrivateRouter';
 const ProductManagementPage = (props: any) => {
+    PrivateRoute();
 
     const data = props.products.map((product: any) => {
         return {

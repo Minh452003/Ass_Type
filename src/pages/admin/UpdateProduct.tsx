@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, Input, Select } from 'antd';
 import { IProduct, IUpdate } from '../../interfaces/products';
+import PrivateRoute from '../../PrivateRouter';
 
 const UpdateProduct = (props: any) => {
     const { id } = useParams();
     const navigate = useNavigate();
+    PrivateRoute();
     const [product, setProduct] = useState<IProduct>();
-
     useEffect(() => {
         const currentProduct = props.products.find((product: IProduct) => product._id == id);
         setProduct(currentProduct);
