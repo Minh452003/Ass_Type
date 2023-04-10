@@ -9,7 +9,7 @@ import PrivateRoute from '../../PrivateRouter';
 
 const AddProduct = (props: any) => {
     PrivateRoute();
-
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const CLOUD_NAME = "dkvghcobl";
