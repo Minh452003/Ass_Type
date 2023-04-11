@@ -63,7 +63,7 @@ const SignUp = (props: any) => {
                             dependencies={['password']}
                             hasFeedback
                             rules={[{ required: true, message: 'Nhập lại mật khẩu không được để trống!' }, ({ getFieldValue }) => ({
-                                validator(value) {
+                                validator(rule, value) {
                                     if (!value || getFieldValue('password') === value) {
                                         return Promise.resolve();
                                     }
