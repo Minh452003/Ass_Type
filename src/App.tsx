@@ -41,11 +41,19 @@ function App() {
 
     }
   }
-  const onHandleAdd = (product: IProduct) => {
-    addProduct(product).then(() => alert("Thêm sản phẩm thành công"));
+  const onHandleAdd = async (product: IProduct) => {
+    const { data } = await addProduct(product);
+    alert("Thêm sản phẩm thành công");
+    const listProduct = await getAll();
+    setProducts(listProduct.data.docs);
+
   }
-  const onHandleUpdate = (product: IProduct) => {
-    updateProduct(product).then(() => setProducts(products.map(item => item._id == product._id ? product : item))).then(() => alert("Cập nhật sản phẩm thành công"));
+  const onHandleUpdate = async (product: IProduct) => {
+    const { data } = await updateProduct(product);
+    setProducts(products.map(item => item._id == product._id ? product : item));
+    alert("Cập nhật sản phẩm thành công");
+    const listProduct = await getAll();
+    setProducts(listProduct.data.docs);
   }
   // Category
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -63,11 +71,18 @@ function App() {
       })
     }
   }
-  const onHandleAddCate = (category: ICategory) => {
-    addCategory(category).then(() => alert("Thêm danh mục thành công"));
+  const onHandleAddCate = async (category: ICategory) => {
+    const { data } = await addCategory(category);
+    alert("Thêm danh mục thành công");
+    const listCate = await getAllCategory();
+    setCategories(listCate.data);
   }
-  const onHandleUpdateCate = (category: ICategory) => {
-    updateCategory(category).then(() => setCategories(categories.map(item => item._id == category._id ? category : item))).then(() => alert("Cập nhật danh mục thành công"));
+  const onHandleUpdateCate = async (category: ICategory) => {
+    const { data } = await updateCategory(category);
+    setCategories(categories.map(item => item._id == category._id ? category : item));
+    alert("Cập nhật danh mục thành công");
+    const listCate = await getAllCategory();
+    setCategories(listCate.data);
   }
   return (
     <div className="App" style={{ width: '100%' }}>

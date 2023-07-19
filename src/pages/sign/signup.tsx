@@ -10,6 +10,7 @@ const SignUp = (props: any) => {
     const [passwordVisible, setPasswordVisible] = React.useState(false);
     const onFinish = (values: any) => {
         signUp(values);
+        alert("Đăng ký thành công");
         navigate("/signin");
     }
 

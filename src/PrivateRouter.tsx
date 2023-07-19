@@ -6,7 +6,7 @@ function PrivateRoute() {
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (!storedUser) {
-            navigate('/');
+            navigate('/signin');
             return;
         }
         const { user: { role } } = JSON.parse(storedUser);

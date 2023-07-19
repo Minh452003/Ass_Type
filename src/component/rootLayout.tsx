@@ -75,7 +75,7 @@ const RootLayout = (props: Props) => {
                         <Link to={'/admin'} className="text-info">Đăng nhập admin</Link> |
                         <Button onClick={() => {
                             localStorage.removeItem("user")
-                            navigate('/')
+                            navigate('/signin')
                         }} style={{ marginLeft: '10px' }}
                             danger
 
