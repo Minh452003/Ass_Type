@@ -18,9 +18,9 @@ const AddProduct = (props: any) => {
     const [image, setImage] = useState<String>('');
     const api = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
     const imgPost = document.getElementById('image');
-    imgPost?.addEventListener('change', (e) => {
-        setImage(URL.createObjectURL(e.target?.files[0]))
-    });
+    // imgPost?.addEventListener('change', (e) => {
+    //     setImage(URL.createObjectURL(e.target?.files[0]))
+    // });
 
     const onHandleSubmit = async (data: any) => {
         const file = data.image[0];
